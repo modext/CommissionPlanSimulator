@@ -22,8 +22,8 @@ export const getOrders = async (req: Request, res: Response) => {
     try {
       const orders = await prisma.order.findMany({
         include: {
-          product: true, // Corrected from 'Product' to 'product'
-          staffMember: true, // Corrected from 'StaffMember' to 'staffMember'
+          product: true, 
+          staffMember: true, 
         },
       });
       res.json(orders);

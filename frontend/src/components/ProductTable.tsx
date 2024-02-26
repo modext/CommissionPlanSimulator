@@ -14,7 +14,6 @@ export const ProductTable: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    // Fetch products from your API
     fetch("/api/products")
       .then((response) => response.json())
       .then(setProducts);
@@ -40,7 +39,7 @@ export const ProductTable: React.FC = () => {
           product.category,
           product.price,
           <TextField
-            label={`Commission for ${product.name}`} // Required label prop
+            label={`Commission for ${product.name}`} 
             key={product.id}
             value={product.commissionPercent?.toString() || ""}
             onChange={(value) => handleCommissionChange(value, product.id)}
