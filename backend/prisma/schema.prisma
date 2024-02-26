@@ -1,0 +1,41 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Product {
+  id                Int       @id @default(autoincrement())
+  name              String
+  category          String
+  price             Float
+  commissions       Commission[]
+  orders            Order[]
+}
+
+model Order {
+  id                Int       @id @default(autoincrement())
+  productId         Int
+  staffMemberId     Int
+  quantity          Int
+  date              DateTime
+  Product           Product   @relation(fields: [productId], references: [id])
+  StaffMember       StaffMember @relation(fields: [staffMemberId], references: [id])
+}
+
+model StaffMember {
+  id                Int       @id @default(autoincrement())
+  name              String
+  orders            Order[]
+}
+
+model Commission {
+  id                Int       @id @default(autoincrement())
+  productId         Int
+  percent           Float
+  Product           Product   @relation(fields: [productId], references: [id])
+}
