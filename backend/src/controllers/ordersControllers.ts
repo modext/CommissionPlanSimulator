@@ -19,16 +19,15 @@ export const createOrder = async (req: Request, res: Response) => {
 };
 
 export const getOrders = async (req: Request, res: Response) => {
-  try {
-    const orders = await prisma.order.findMany({
-      include: {
-        Product: true,
-        StaffMember: true,
-      },
-    });
-    res.json(orders);
-  } catch (error:any) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
+    try {
+      const orders = await prisma.order.findMany({
+        include: {
+          product: true, // Corrected from 'Product' to 'product'
+          staffMember: true, // Corrected from 'StaffMember' to 'staffMember'
+        },
+      });
+      res.json(orders);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  };

@@ -1,7 +1,5 @@
 const express = require('express');
-const { Sequelize } = require('sequelize');
-
-import { PrismaClient } from '@prisma/client';
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 const app = express();
@@ -9,25 +7,16 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const staffMemberRoutes = require('./routes/staffMemberRoutes');
+const commissionRoutes = require('./routes/commissionRoutes');
 
-async function testDB() {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-}
-
-testDB();
-
-app.get('/', (req, res) => res.send('Hello World!'));
-app.get('/products', async (req, res) => {
-    const products = await prisma.product.findMany();
-    res.json(products);
-  });
+app.use('/products', productRoutes);
+app.use('/orders', orderRoutes);
+app.use('/staff-members', staffMemberRoutes);
+app.use('/commissions', commissionRoutes);
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });

@@ -3,7 +3,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: commission-plan-simulator/Dockerfile
+      dockerfile: frontend/Dockerfile
     ports:
       - '3000:80'
     depends_on:
@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - '3001:3001'
+      - '3001:3000'
     environment:
       - NODE_ENV=production
     volumes:
