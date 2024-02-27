@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Card, DataTable, TextField } from "@shopify/polaris";
 
 interface Product {
-  id: number;
+  id: number | string;
   name: string;
   category: string;
   price: number;
@@ -14,12 +14,18 @@ export const ProductTable: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetch("/api/products")
-      .then((response) => response.json())
-      .then(setProducts);
+    async function fetchProducts() {
+      const res = await fetch('http://localhost:3001/api/products'); 
+      const data = await res.json();
+      setProducts(data);
+    }
+  
+    fetchProducts();
   }, []);
+  
 
-  const handleCommissionChange = (value: string, id: number) => {
+
+  const handleCommissionChange = (value: string, id: number | string) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product.id === id

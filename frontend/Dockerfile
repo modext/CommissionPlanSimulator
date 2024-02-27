@@ -1,16 +1,16 @@
 
-FROM node:16 as builder
+FROM node:18.17 as builder
 
 WORKDIR /usr/src/app
 
 COPY frontend/package*.json ./
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY frontend/ ./
 
 RUN npm run build
-
+# RUN npm install --legacy-peer-deps
 
 FROM nginx:alpine
 

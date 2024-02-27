@@ -2,10 +2,15 @@ FROM node:16
 
 WORKDIR /usr/src/app
 
-COPY backend/package*.json ./
+# COPY backend/package*.json ./
+COPY . .
 
-RUN npm install --only=production
+RUN npm install 
+# RUN npm install --only=production
+EXPOSE 3000
 
-COPY backend/ ./
+# COPY backend/ ./
+
+ENV NODE_ENV production
 
 CMD [ "npm", "start" ]

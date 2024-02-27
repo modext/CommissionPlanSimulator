@@ -2,7 +2,7 @@
 import {
   TextField,
   IndexTable,
-  LegacyCard,
+  Card,
   IndexFilters,
   useSetIndexFiltersMode,
   useIndexResourceState,
@@ -13,12 +13,17 @@ import {
   useBreakpoints,
 } from '@shopify/polaris';
 import type {IndexFiltersProps, TabProps} from '@shopify/polaris';
-import React from 'react';
 import {useState, useCallback} from 'react';
 
+interface Product {
+  id: number | string;
+  name: string;
+  category: string;
+  price: number;
+  commissionPercent?: number;
+}
 
-  export default function IndexTableWithViewsSearchFilterSorting(): JSX.Element {
-
+export default function IndexTableWithViewsSearchFilterSorting(): JSX.Element {
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
   const [itemStrings, setItemStrings] = useState([
@@ -335,7 +340,7 @@ import {useState, useCallback} from 'react';
   );
 
   return (
-    <LegacyCard>
+    <Card>
       <IndexFilters
         sortOptions={sortOptions}
         sortSelected={sortSelected}
@@ -380,7 +385,7 @@ import {useState, useCallback} from 'react';
       >
         {rowMarkup}
       </IndexTable>
-    </LegacyCard>
+    </Card>
   );
 
   function disambiguateLabel(key: string, value: string | any[]): string {
@@ -404,5 +409,3 @@ import {useState, useCallback} from 'react';
     }
   }
 }
-
-
